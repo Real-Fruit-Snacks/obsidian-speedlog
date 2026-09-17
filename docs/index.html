@@ -9,12 +9,29 @@
 <meta property="og:title" content="Speedlog for Obsidian">
 <meta property="og:description" content="Run a speed test, keep the log. Every result is a note in your vault.">
 <meta property="og:image" content="https://real-fruit-snacks.github.io/obsidian-speedlog/assets/og.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/rfs.css">
 <style>:root{ --accent:#35C0A0; --accent-2:#E0A24A; }</style>
+<style>
+.cover { margin: 8px auto 0; max-width: 1040px; }
+.cover img { border-radius: 14px; border: 1px solid var(--line); display: block; }
+.steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.steps-grid .f b.n { display: inline-block; font-family: var(--mono); font-size: 12px; color: var(--accent); margin-bottom: 8px; }
+.shots.even { grid-template-columns: 1fr 1fr; }
+.kv { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 0 0 36px; }
+.kv div { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+.kv b { display: block; font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--text); }
+.kv span { font-size: 13px; color: var(--text-3); }
+.log { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; font-family: var(--mono); font-size: 12.5px; line-height: 1.6; color: var(--text-2); overflow-x: auto; }
+.log i { font-style: normal; color: var(--text-3); display: inline-block; width: 4.5em; text-align: right; margin-right: 10px; }
+@media (max-width: 800px) { .steps-grid, .kv { grid-template-columns: 1fr 1fr; } .shots.even { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .steps-grid, .kv { grid-template-columns: 1fr; } }
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -23,6 +40,8 @@
     <span class="crumb">/</span><span class="proj">Speedlog</span>
     <nav>
       <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#screens">Screens</a>
       <a href="#install">Install</a>
       <a href="#settings">Settings</a>
       <a href="changelog.html">Changelog</a>
@@ -31,26 +50,75 @@
   </header>
 
   <div class="hero">
-    <div class="pill"><b>New</b> 1.0.0 — first release</div>
+    <div class="pill"><b>1.0.0</b> First release — LibreSpeed and Cloudflare, three profiles, live log and timeline</div>
     <h1>Run a speed test. Keep the log.</h1>
     <p class="lede">Speedlog measures download, upload, latency and jitter from inside Obsidian and writes every run to your vault as a note with front matter. Label your networks, compare against their medians, chart the history with Bases or Dataview.</p>
     <div class="actions">
       <a class="btn primary" href="#install">Install Speedlog</a>
       <a class="btn secondary" href="https://github.com/Real-Fruit-Snacks/obsidian-speedlog">View source</a>
     </div>
-    <div class="frame"><img src="assets/hero.png" alt="Speedlog: the run note, the sidebar panel and the settings tab"></div>
+    <div class="cover"><img src="assets/hero.png" alt="Speedlog: a run in progress with its live log and history beside the Summary note"></div>
   </div>
 
   <section id="features">
     <h2>A speed test that remembers</h2>
     <p class="sub">A one-off test is a browser tab. A log tells you which network was slow, when it started, and whether the new router helped.</p>
+    <div class="kv">
+      <div><b>4 streams</b><span>parallel download and upload, the way browser tests do</span></div>
+      <div><b>17 + 1</b><span>LibreSpeed servers by city, or Cloudflare's nearest edge</span></div>
+      <div><b>1 note</b><span>per run, with numeric front matter and a timeline</span></div>
+      <div><b>0 accounts</b><span>no sign-in, no telemetry, one server contacted per run</span></div>
+    </div>
     <div class="grid">
-      <div class="f"><div class="ic">▾</div><h3>Four numbers, measured properly</h3><p>Latency probes, a warm-up, then sized downloads and uploads. Accurate runs four streams in parallel, the way browser speed tests do, and measures latency while the link is saturated. Light keeps a run under 10 MB.</p></div>
-      <div class="f"><div class="ic">▤</div><h3>One note per run</h3><p>Front matter with <code>download_mbps</code>, <code>upload_mbps</code>, <code>latency_ms</code>, <code>jitter_ms</code>, <code>label</code>, <code>server</code> and more. A callout shows the numbers and how they compare to that label's median.</p></div>
+      <div class="f"><div class="ic">▾</div><h3>Four numbers, measured properly</h3><p>Up to 30 latency probes, a warm-up, then sized downloads and uploads over four parallel streams. Results are the median of the fastest half. Latency is probed again while the link is saturated.</p></div>
+      <div class="f"><div class="ic">▤</div><h3>One note per run</h3><p>Front matter with <code>download_mbps</code>, <code>upload_mbps</code>, <code>latency_ms</code>, <code>jitter_ms</code>, <code>loaded_latency_ms</code>, <code>server</code>, <code>label</code> and phase timings. A callout shows the numbers and how they compare to that network's median.</p></div>
+      <div class="f"><div class="ic">≡</div><h3>Every step, timed</h3><p>The panel logs each step as it happens — server pick, latency, every round with size, time and rate. The note keeps the same as a Timeline table.</p></div>
       <div class="f"><div class="ic">#</div><h3>Labels</h3><p>"home wifi", "office", "phone hotspot" — type it once, pick it from a chip next time. Medians, best and worst are tracked per label so a hotspot doesn't drag down your fibre.</p></div>
-      <div class="f"><div class="ic">Σ</div><h3>Summary that rewrites itself</h3><p><code>Summary.md</code> holds every label's numbers and the last 7 days, with links to each run. Updated after every test.</p></div>
-      <div class="f"><div class="ic">▦</div><h3>Panel and status bar</h3><p>Last result, live progress, a sparkline and recent runs in the sidebar. The status bar shows the last numbers; click to run again.</p></div>
-      <div class="f"><div class="ic">◷</div><h3>Scheduled, if you want</h3><p>Run on startup once a day, or every N minutes. Both off by default, and skipped on phones and tablets unless you say otherwise.</p></div>
+      <div class="f"><div class="ic">Σ</div><h3>Summary that rewrites itself</h3><p><code>Summary.md</code> holds every label's numbers, failed runs with their reason, and the last 7 days, with links to each note. Updated after every test.</p></div>
+      <div class="f"><div class="ic">◷</div><h3>Scheduled, if you want</h3><p>Run on startup once a day, or every N minutes. Both off by default, and skipped on phones and tablets unless you say otherwise. Cancel any run with one click.</p></div>
+    </div>
+  </section>
+
+  <section id="how">
+    <h2>How a run works</h2>
+    <p class="sub">About twelve seconds on a fast link. This is a real log from the panel.</p>
+    <div class="log">
+<i>0 s</i>Pinging LibreSpeed servers · 17 servers, two passes · nearest New York (2) (Clouvider) 25 ms, Atlanta (Clouvider) 44 ms, Grand Rapids (RackGenius) 46 ms (2.47 s)<br>
+<i>2.5 s</i>Latency probes · 30 probes, first discarded · median 27 ms, jitter ±2.6 ms, best 24, worst 33 (0.89 s)<br>
+<i>3.4 s</i>Warm-up · 1 MB in 0.07 s (118.7 Mbps) · non-streaming transfer (0.07 s)<br>
+<i>3.5 s</i>Download 1/4 · 4 × 10 MB in 0.73 s wall · streams 0.7/0.6/0.7/0.6 s · 3 loaded pings (0.73 s)<br>
+<i>4.2 s</i>Download 2/4 · 4 × 10 MB in 0.64 s wall · 539.4 Mbps · streams 0.6/0.6/0.6/0.6 s (0.64 s)<br>
+<i>4.8 s</i>Download 3/4 · 4 × 10 MB in 0.68 s wall · 559.5 Mbps · streams 0.6/0.6/0.6/0.7 s (0.69 s)<br>
+<i>5.5 s</i>Download 4/4 · 4 × 10 MB in 0.63 s wall · 554.9 Mbps · streams 0.6/0.6/0.6/0.6 s (0.63 s)<br>
+<i>6.1 s</i>Download result · 557.2 Mbps (median of the fastest half of 4) · 60 ms under load<br>
+<i>6.1 s</i>Upload probe · 1 MB in 1.05 s (8 Mbps) · chunks 512 KB (1.05 s)<br>
+<i>7.2 s</i>Upload 1 · 4 × 512 KB in 1.17 s · 14.3 Mbps (1.18 s)<br>
+<i>8.4 s</i>Upload 2 · 4 × 512 KB in 1.12 s · 15 Mbps (1.12 s)<br>
+<i>9.5 s</i>Upload 3 · 4 × 512 KB in 1.05 s · 15.9 Mbps (1.06 s)<br>
+<i>10.6 s</i>Upload 4 · 4 × 512 KB in 1.08 s · 15.4 Mbps (1.08 s)<br>
+<i>11.7 s</i>Upload result · 15.4 Mbps (median of the fastest half of 4)<br>
+<i>11.7 s</i>Writing run note · Saved 2026-09-17 185103 · Summary updated
+    </div>
+    <div class="steps-grid" style="margin-top:12px">
+      <div class="f"><b class="n">01 · Server</b><h3>Nearest by ping</h3><p>Every LibreSpeed server is pinged in two passes; the quickest three are kept. If one refuses the test, the next is tried. Or pin a server, or use Cloudflare.</p></div>
+      <div class="f"><b class="n">02 · Latency</b><h3>Median and jitter</h3><p>Up to 30 small requests, first one discarded. Median is the latency; the mean gap between probes is the jitter.</p></div>
+      <div class="f"><b class="n">03 · Download</b><h3>Four rounds, four streams</h3><p>Each round reports its rate; the result is the median of the fastest half. Latency is probed during the transfer for the under-load figure.</p></div>
+      <div class="f"><b class="n">04 · Upload</b><h3>Sized to your uplink</h3><p>A 1 MB probe picks the chunk size, then rounds run until a time budget is spent. Servers with small body limits are handled automatically.</p></div>
+      <div class="f"><b class="n">05 · Note</b><h3>Front matter and timeline</h3><p>The run note is written with the numbers, the comparison to your median, a timeline of every step, and the previous runs on that network.</p></div>
+      <div class="f"><b class="n">06 · Summary</b><h3>Rebuilt every run</h3><p><code>Summary.md</code> is rewritten with per-label medians, failed runs, and the last 7 days.</p></div>
+    </div>
+  </section>
+
+  <section id="screens">
+    <h2>The panel, the notes, the settings</h2>
+    <p class="sub">Shot under the Terminal Workbench theme; the panel takes its colours from whatever theme you run.</p>
+    <div class="shots even">
+      <figure><img src="assets/panel-live.png" alt="The Speedlog panel mid-run: live numbers, a progress bar and a step-by-step log" loading="lazy"><figcaption>A run in progress, with the live log open</figcaption></figure>
+      <figure><img src="assets/panel.png" alt="The Speedlog panel after five runs: last result, label chips, sparkline and recent runs" loading="lazy"><figcaption>After a few runs, with the sparkline</figcaption></figure>
+    </div>
+    <div class="shots even" style="margin-top:12px">
+      <figure><img src="assets/timeline.png" alt="A run note in Reading view: the results callout and a timeline table of every step with its duration" loading="lazy"><figcaption>Every run note carries its own timeline</figcaption></figure>
+      <figure><img src="assets/summary.png" alt="The Summary note: runs, medians, best and worst per label, and the last 7 days" loading="lazy"><figcaption>Summary.md, rewritten after every run</figcaption></figure>
     </div>
   </section>
 
@@ -58,35 +126,45 @@
     <div class="two">
       <div>
         <h2>Install in a minute</h2>
-        <p class="sub">Three files and a toggle. No build step, no account.</p>
+        <p class="sub">Three files and a toggle. No build step, no account. Desktop and mobile.</p>
         <ol class="steps">
           <li><b>Download</b> <code>main.js</code>, <code>styles.css</code> and <code>manifest.json</code> from the <a href="https://github.com/Real-Fruit-Snacks/obsidian-speedlog/releases/latest">latest release</a>.</li>
           <li><b>Copy</b> them into <code>.obsidian/plugins/speedlog/</code> inside your vault.</li>
-          <li><b>Enable</b> Speedlog under Settings → Community plugins.</li>
+          <li><b>Enable</b> Speedlog under Settings → Community plugins, then click the gauge in the ribbon.</li>
         </ol>
-        <div class="callout"><b>Network.</b> Speedlog contacts one host, <code>speed.cloudflare.com</code>, and only while a test runs. Balanced, the default, moves about 60 MB down and 15 MB up; Light about 7 MB; Accurate about 250 MB.</div>
+        <div class="callout"><b>Network.</b> Speedlog contacts one server per run, and only while a test runs: the nearest LibreSpeed public server by default, one you pick, or <code>speed.cloudflare.com</code>. Accurate, the default, moves about 160 MB down and 10–40 MB up; Balanced about 60 MB; Light about 7 MB. Nothing about you or your vault is sent.</div>
       </div>
       <div>
         <p class="sub" style="text-align:left;margin-bottom:10px">Each run is one Markdown file:</p>
 <pre><code>---
-download_mbps: 412.6
-upload_mbps: 38.1
-latency_ms: 14
-jitter_ms: 2.3
-profile: balanced
+download_mbps: 557.2
+upload_mbps: 15.4
+latency_ms: 27
+jitter_ms: 2.6
+loaded_latency_ms: 60
+profile: accurate
 label: "home wifi"
-server: "Cloudflare · EWR · US"
+server: "New York, United States (2) (Clouvider)"
+server_host: "nyc.speedtest.clouvider.net"
+server_picked: auto
 platform: "desktop · linux"
 trigger: manual
-duration_s: 11.8
-date: 2026-09-17T14:22:33-07:00
+duration_s: 12.1
+pick_s: 2.5
+latency_s: 0.9
+download_s: 3.4
+upload_s: 5.1
+date: 2026-09-17T18:51:03-04:00
 tags: [speedlog]
 ---
 
-&gt; [!info] Speed test · Thu 17 Sep, 14:22 · home wifi
-&gt; **412.6 Mbps** down · ▲ 6% vs median
-&gt; **38.1 Mbps** up · ▼ 3% vs median
-&gt; **14 ms** latency · ±2.3 ms jitter</code></pre>
+&gt; [!info] Speed test · Thu 17 Sep, 18:51 · home wifi
+&gt; **557.2 Mbps** down · ▲ 8% vs median
+&gt; **15.4 Mbps** up · ▲ 3% vs median
+&gt; **27 ms** latency · ±2.6 ms jitter · 60 ms under load
+
+## Timeline
+…</code></pre>
       </div>
     </div>
   </section>
@@ -97,7 +175,8 @@ tags: [speedlog]
     <div class="table-wrap">
       <table>
         <tr><th>Setting</th><th>What it does</th></tr>
-        <tr><td>Profile</td><td>Light (about 7 MB, for metered links), Balanced (single stream, about 60 MB), Accurate (four parallel streams and latency under load, about 250 MB).</td></tr>
+        <tr><td>Profile</td><td>Accurate (default: four streams, latency under load, about 160 MB), Balanced (single stream, about 60 MB), Light (one 5 MB transfer, for metered links).</td></tr>
+        <tr><td>Server</td><td>The nearest LibreSpeed server (default, picked each run), one of 17 LibreSpeed servers by city, or Cloudflare's nearest edge.</td></tr>
         <tr><td>Time cap</td><td>A run stops after this many seconds and reports what it has.</td></tr>
         <tr><td>Run on startup</td><td>One test 30 s after the vault opens, at most once a day. Off by default.</td></tr>
         <tr><td>Repeat every</td><td>Never, or 30 minutes to 24 hours. Off by default.</td></tr>
@@ -112,7 +191,7 @@ tags: [speedlog]
         <tr><th>Command</th><th>What it does</th></tr>
         <tr><td>Run speed test</td><td>Runs a test with the current label and writes the note.</td></tr>
         <tr><td>Open panel</td><td>Opens the Speedlog sidebar.</td></tr>
-        <tr><td>Open summary note</td><td>Rewrites and opens <code>Summary.md</code>.</td></tr>
+        <tr><td>Open summary note</td><td>Rebuilds and opens <code>Summary.md</code>.</td></tr>
       </table>
     </div>
   </section>
@@ -135,7 +214,7 @@ tags: [speedlog]
 
   <footer class="site-footer">
     <span>Speedlog by <a href="https://github.com/Real-Fruit-Snacks">Real-Fruit-Snacks</a> · MIT</span>
-    <span>Measures against <a href="https://speed.cloudflare.com">Cloudflare</a></span>
+    <span>Measures against <a href="https://librespeed.org">LibreSpeed</a> servers or <a href="https://speed.cloudflare.com">Cloudflare</a></span>
   </footer>
 </div>
 </body>

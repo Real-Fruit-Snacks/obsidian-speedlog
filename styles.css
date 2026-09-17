@@ -9,9 +9,21 @@
 .speedlog-nums { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
 .speedlog-num-value { font-size: 1.6em; font-weight: 700; line-height: 1.1; color: var(--text-normal); font-variant-numeric: tabular-nums; }
 .speedlog-num-label { font-size: var(--font-ui-smaller); color: var(--text-muted); }
+.speedlog-card.is-failed { border-color: var(--color-red); }
+.speedlog-error { font-size: var(--font-ui-smaller); color: var(--color-red); }
+.speedlog-row-failed { color: var(--color-red); grid-column: span 1; }
 .speedlog-bar { height: 4px; border-radius: 2px; background: var(--background-modifier-border); overflow: hidden; }
 .speedlog-bar-fill { height: 100%; width: var(--speedlog-progress, 0%); background: var(--interactive-accent); transition: width 200ms ease; }
 
+.speedlog-log { margin-top: 2px; }
+.speedlog-log summary { cursor: pointer; font-size: var(--font-ui-smaller); color: var(--text-muted); list-style: none; }
+.speedlog-log summary::-webkit-details-marker { display: none; }
+.speedlog-log summary::before { content: '▸ '; }
+.speedlog-log[open] summary::before { content: '▾ '; }
+.speedlog-log-list { max-height: 160px; overflow-y: auto; margin-top: 4px; font-family: var(--font-monospace); font-size: 11px; line-height: 1.5; }
+.speedlog-log-row { display: grid; grid-template-columns: 4.5em minmax(0, 1fr); gap: 0 8px; }
+.speedlog-log-at { color: var(--text-faint); text-align: right; }
+.speedlog-log-text { color: var(--text-muted); overflow-wrap: anywhere; }
 .speedlog-form { display: flex; gap: 8px; }
 .speedlog-label { flex: 1 1 auto; min-width: 0; }
 .speedlog-run { display: flex; align-items: center; gap: 6px; }
