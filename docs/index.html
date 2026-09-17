@@ -18,6 +18,11 @@
 <link rel="stylesheet" href="assets/rfs.css">
 <style>:root{ --accent:#35C0A0; --accent-2:#E0A24A; }</style>
 <style>
+.site-header .owner, .site-header .proj, .site-header nav a { white-space: nowrap; }
+.site-header nav { gap: 2px; }
+.site-header nav a { padding: 7px 10px; }
+@media (max-width: 900px) { .site-header nav a[href="#settings"], .site-header nav a[href="#how"] { display: none; } }
+@media (max-width: 700px) { .site-header .crumb, .site-header .proj { display: none; } .site-header nav a[href="changelog.html"] { display: none; } }
 .cover { margin: 8px auto 0; max-width: 1040px; }
 .cover img { border-radius: 14px; border: 1px solid var(--line); display: block; }
 .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
@@ -41,7 +46,6 @@
     <nav>
       <a href="#features">Features</a>
       <a href="#how">How it works</a>
-      <a href="#screens">Screens</a>
       <a href="#install">Install</a>
       <a href="#settings">Settings</a>
       <a href="changelog.html">Changelog</a>
