@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Speedlog — internet speed tests, logged as notes in Obsidian</title>
+<meta name="description" content="Speedlog runs an internet speed test from inside Obsidian and logs every result as a Markdown note with front matter: download, upload, latency and jitter, per-label medians, and a summary that rewrites itself.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Speedlog for Obsidian">
+<meta property="og:description" content="Run a speed test, keep the log. Every result is a note in your vault.">
+<meta property="og:image" content="https://real-fruit-snacks.github.io/obsidian-speedlog/assets/og.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/rfs.css">
+<style>:root{ --accent:#35C0A0; --accent-2:#E0A24A; }</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="site-header">
+    <a class="owner" href="https://github.com/Real-Fruit-Snacks"><i></i>Real-Fruit-Snacks</a>
+    <span class="crumb">/</span><span class="proj">Speedlog</span>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#install">Install</a>
+      <a href="#settings">Settings</a>
+      <a href="changelog.html">Changelog</a>
+      <a class="gh" href="https://github.com/Real-Fruit-Snacks/obsidian-speedlog">GitHub</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="pill"><b>New</b> 1.0.0 — first release</div>
+    <h1>Run a speed test. Keep the log.</h1>
+    <p class="lede">Speedlog measures download, upload, latency and jitter from inside Obsidian and writes every run to your vault as a note with front matter. Label your networks, compare against their medians, chart the history with Bases or Dataview.</p>
+    <div class="actions">
+      <a class="btn primary" href="#install">Install Speedlog</a>
+      <a class="btn secondary" href="https://github.com/Real-Fruit-Snacks/obsidian-speedlog">View source</a>
+    </div>
+    <div class="frame"><img src="assets/hero.png" alt="Speedlog: the run note, the sidebar panel and the settings tab"></div>
+  </div>
+
+  <section id="features">
+    <h2>A speed test that remembers</h2>
+    <p class="sub">A one-off test is a browser tab. A log tells you which network was slow, when it started, and whether the new router helped.</p>
+    <div class="grid">
+      <div class="f"><div class="ic">▾</div><h3>Four numbers, measured properly</h3><p>Latency probes, a warm-up, then sized downloads and uploads. Accurate runs four streams in parallel, the way browser speed tests do, and measures latency while the link is saturated. Light keeps a run under 10 MB.</p></div>
+      <div class="f"><div class="ic">▤</div><h3>One note per run</h3><p>Front matter with <code>download_mbps</code>, <code>upload_mbps</code>, <code>latency_ms</code>, <code>jitter_ms</code>, <code>label</code>, <code>server</code> and more. A callout shows the numbers and how they compare to that label's median.</p></div>
+      <div class="f"><div class="ic">#</div><h3>Labels</h3><p>"home wifi", "office", "phone hotspot" — type it once, pick it from a chip next time. Medians, best and worst are tracked per label so a hotspot doesn't drag down your fibre.</p></div>
+      <div class="f"><div class="ic">Σ</div><h3>Summary that rewrites itself</h3><p><code>Summary.md</code> holds every label's numbers and the last 7 days, with links to each run. Updated after every test.</p></div>
+      <div class="f"><div class="ic">▦</div><h3>Panel and status bar</h3><p>Last result, live progress, a sparkline and recent runs in the sidebar. The status bar shows the last numbers; click to run again.</p></div>
+      <div class="f"><div class="ic">◷</div><h3>Scheduled, if you want</h3><p>Run on startup once a day, or every N minutes. Both off by default, and skipped on phones and tablets unless you say otherwise.</p></div>
+    </div>
+  </section>
+
+  <section id="install">
+    <div class="two">
+      <div>
+        <h2>Install in a minute</h2>
+        <p class="sub">Three files and a toggle. No build step, no account.</p>
+        <ol class="steps">
+          <li><b>Download</b> <code>main.js</code>, <code>styles.css</code> and <code>manifest.json</code> from the <a href="https://github.com/Real-Fruit-Snacks/obsidian-speedlog/releases/latest">latest release</a>.</li>
+          <li><b>Copy</b> them into <code>.obsidian/plugins/speedlog/</code> inside your vault.</li>
+          <li><b>Enable</b> Speedlog under Settings → Community plugins.</li>
+        </ol>
+        <div class="callout"><b>Network.</b> Speedlog contacts one host, <code>speed.cloudflare.com</code>, and only while a test runs. Balanced, the default, moves about 60 MB down and 15 MB up; Light about 7 MB; Accurate about 250 MB.</div>
+      </div>
+      <div>
+        <p class="sub" style="text-align:left;margin-bottom:10px">Each run is one Markdown file:</p>
+<pre><code>---
+download_mbps: 412.6
+upload_mbps: 38.1
+latency_ms: 14
+jitter_ms: 2.3
+profile: balanced
+label: "home wifi"
+server: "Cloudflare · EWR · US"
+platform: "desktop · linux"
+trigger: manual
+duration_s: 11.8
+date: 2026-09-17T14:22:33-07:00
+tags: [speedlog]
+---
+
+&gt; [!info] Speed test · Thu 17 Sep, 14:22 · home wifi
+&gt; **412.6 Mbps** down · ▲ 6% vs median
+&gt; **38.1 Mbps** up · ▼ 3% vs median
+&gt; **14 ms** latency · ±2.3 ms jitter</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section id="settings">
+    <h2>Settings and commands</h2>
+    <p class="sub">Grouped under Test, When to run and Notes.</p>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Setting</th><th>What it does</th></tr>
+        <tr><td>Profile</td><td>Light (about 7 MB, for metered links), Balanced (single stream, about 60 MB), Accurate (four parallel streams and latency under load, about 250 MB).</td></tr>
+        <tr><td>Time cap</td><td>A run stops after this many seconds and reports what it has.</td></tr>
+        <tr><td>Run on startup</td><td>One test 30 s after the vault opens, at most once a day. Off by default.</td></tr>
+        <tr><td>Repeat every</td><td>Never, or 30 minutes to 24 hours. Off by default.</td></tr>
+        <tr><td>Allow scheduled runs on mobile</td><td>Off: startup and interval runs skip phones and tablets. Manual runs always work.</td></tr>
+        <tr><td>Folder, filename format</td><td>Where run notes go and how they are named. Default <code>Speed tests/</code>, <code>YYYY-MM-DD HHmmss</code>.</td></tr>
+        <tr><td>Keep Summary.md updated</td><td>Rewrite the summary note after every run.</td></tr>
+        <tr><td>Status bar</td><td>Show the last result; click it to run again.</td></tr>
+      </table>
+    </div>
+    <div class="table-wrap" style="margin-top:12px">
+      <table>
+        <tr><th>Command</th><th>What it does</th></tr>
+        <tr><td>Run speed test</td><td>Runs a test with the current label and writes the note.</td></tr>
+        <tr><td>Open panel</td><td>Opens the Speedlog sidebar.</td></tr>
+        <tr><td>Open summary note</td><td>Rewrites and opens <code>Summary.md</code>.</td></tr>
+      </table>
+    </div>
+  </section>
+
+<section id="projects">
+    <h2>More from Real-Fruit-Snacks</h2>
+    <p class="sub">Same site, a different glow per project.</p>
+    <div class="proj">
+      <a href="#" aria-current="page"><i style="background:#35C0A0"></i><b>Speedlog</b><span>Obsidian plugin</span></a>
+      <a href="https://real-fruit-snacks.github.io/obsidian-Thoughtbin/"><i style="background:#7C9CFF"></i><b>Thoughtbin</b><span>Obsidian plugin — a private timeline for quick thoughts</span></a>
+      <a href="https://real-fruit-snacks.github.io/obsidian-theme-lab/"><i style="background:#E0554A"></i><b>Theme Lab</b><span>Obsidian plugin — build themes from inside Obsidian</span></a>
+      <a href="https://real-fruit-snacks.github.io/obsidian-plugin-lab/"><i style="background:#3DBE8B"></i><b>Dev Lab</b><span>Obsidian plugin — ship a plugin that passes review</span></a>
+      <a href="https://real-fruit-snacks.github.io/obsidian-glow/"><i style="background:#B48CFF"></i><b>Glow</b><span>Obsidian theme — the look this site is built on</span></a>
+      <a href="https://real-fruit-snacks.github.io/obsidian-outrun/"><i style="background:#FF3FA4"></i><b>Outrun</b><span>Obsidian theme — 1986 never ended, now with a day shift</span></a>
+      <a href="https://real-fruit-snacks.github.io/obsidian-dossier/"><i style="background:#E0554A"></i><b>Dossier</b><span>Obsidian theme — every note is a case file</span></a>
+      <a href="https://real-fruit-snacks.github.io/obsidian-comic/"><i style="background:#FFD23F"></i><b>Comic</b><span>Obsidian theme — your notes, printed in colour</span></a>
+      <a href="https://real-fruit-snacks.github.io/obsidian-grimoire/"><i style="background:#D4AF37"></i><b>Grimoire</b><span>Obsidian theme — every note is a tarot card</span></a>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <span>Speedlog by <a href="https://github.com/Real-Fruit-Snacks">Real-Fruit-Snacks</a> · MIT</span>
+    <span>Measures against <a href="https://speed.cloudflare.com">Cloudflare</a></span>
+  </footer>
+</div>
+</body>
+</html>

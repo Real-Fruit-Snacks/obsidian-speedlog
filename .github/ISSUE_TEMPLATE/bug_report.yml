@@ -1,0 +1,48 @@
+name: Bug report
+description: Something isn't working
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open the Speedlog panel
+        2. Run a test ...
+        3. Press ...
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Speedlog version
+      placeholder: "1.2.0"
+    validations:
+      required: true
+  - type: input
+    id: obsidian
+    attributes:
+      label: Obsidian version and platform
+      placeholder: "1.7.4 on macOS / Android 14"
+    validations:
+      required: true
+  - type: textarea
+    id: console
+    attributes:
+      label: Console output
+      description: Anything mentioning Speedlog from the developer console (Ctrl/Cmd+Shift+I on desktop).
+      render: text
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I tried disabling other plugins and the problem persists
+        - label: I'm on the latest release
