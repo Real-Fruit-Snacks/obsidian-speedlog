@@ -5,7 +5,7 @@ All notable changes to Speedlog are listed here. The format follows [Keep a Chan
 ## [1.0.1] - 2026-09-17
 
 ### Fixed
-- The Cancel button painted red text on a red background (1.02:1) — it now uses the on-accent colour.
+- The Cancel button painted red text on a red background (1.02:1). It now keeps the ordinary button background and colours only its label with `--text-error`; a red fill relies on the theme's `--background-modifier-error` and `--text-on-accent` agreeing, which they often don't.
 - Timeline timestamps in the live log used `--text-faint`, which fell below 4.5:1 in both schemes; they use `--text-muted` now.
 - The slowest-run figure used `--color-orange`, unreadable on a light background at 2.74:1; it uses `--text-error`.
 - Label chips and the summary link were under the 24px minimum click target.

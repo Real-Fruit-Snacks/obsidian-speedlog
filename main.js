@@ -734,7 +734,7 @@ class SpeedlogView extends ItemView {
     const form = root.createDiv({ cls: 'speedlog-form' });
     const input = form.createEl('input', { type: 'text', cls: 'speedlog-label', attr: { placeholder: 'Label this run, e.g. home wifi', 'aria-label': 'Label for this run' } });
     input.value = p.settings.lastLabel || '';
-    const btn = form.createEl('button', { cls: running ? 'speedlog-run mod-warning' : 'mod-cta speedlog-run', attr: { 'aria-label': running ? 'Cancel speed test' : 'Run speed test' } });
+    const btn = form.createEl('button', { cls: running ? 'speedlog-run is-cancel' : 'mod-cta speedlog-run', attr: { 'aria-label': running ? 'Cancel speed test' : 'Run speed test' } });
     setIcon(btn.createSpan({ cls: 'speedlog-run-icon' }), running ? 'square' : 'play');
     btn.createSpan({ text: running ? 'Cancel' : 'Run test' });
     const go = () => { if (p.running) { p.running.cancel(); } else { p.runAndLog('manual', input.value); } };
