@@ -30,7 +30,10 @@
 /* Cancel keeps the ordinary button background — a red fill depends on the theme's idea of
    --background-modifier-error and --text-on-accent agreeing, which they often don't. */
 .speedlog-run.is-cancel { color: var(--text-error); }
-.speedlog-run.is-cancel .speedlog-run-icon svg { color: var(--text-error); }
+/* pulled toward the body colour so it clears AA in both schemes whatever red the theme picked;
+   older renderers ignore the second declaration and keep the plain --text-error above */
+.speedlog-run.is-cancel { color: color-mix(in srgb, var(--text-error) 72%, var(--text-normal)); }
+.speedlog-run.is-cancel .speedlog-run-icon svg { color: currentColor; }
 .speedlog-run-icon { display: flex; }
 .speedlog-run-icon svg { width: 14px; height: 14px; }
 .speedlog-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: -6px; }
