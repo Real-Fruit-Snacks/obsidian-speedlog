@@ -37,6 +37,12 @@
 @media (max-width: 800px) { .steps-grid, .kv { grid-template-columns: 1fr 1fr; } .shots.even { grid-template-columns: 1fr; } }
 @media (max-width: 520px) { .steps-grid, .kv { grid-template-columns: 1fr; } }
 </style>
+<style>
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.hero.is-cover { padding: 56px 0 44px; }
+.hero.is-cover .cover { margin: 20px auto 26px; max-width: 1040px; }
+.hero.is-cover .cover img { width: 100%; border-radius: 16px; border: 1px solid var(--line); display: block; }
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -53,15 +59,14 @@
     </nav>
   </header>
 
-  <div class="hero">
+  <div class="hero is-cover">
     <div class="pill"><b>1.0.0</b> First release — LibreSpeed and Cloudflare, three profiles, live log and timeline</div>
-    <h1>Run a speed test. Keep the log.</h1>
-    <p class="lede">Speedlog measures download, upload, latency and jitter from inside Obsidian and writes every run to your vault as a note with front matter. Label your networks, compare against their medians, chart the history with Bases or Dataview.</p>
+    <h1 class="sr-only">Speedlog — run a speed test, keep the log. An Obsidian plugin that logs every result as a note.</h1>
+    <div class="cover"><img src="assets/cover.png" alt="Speedlog: run a speed test, keep the log — the panel mid-run beside the summary note"></div>
     <div class="actions">
       <a class="btn primary" href="#install">Install Speedlog</a>
       <a class="btn secondary" href="https://github.com/Real-Fruit-Snacks/obsidian-speedlog">View source</a>
     </div>
-    <div class="cover"><img src="assets/hero.png" alt="Speedlog: a run in progress with its live log and history beside the Summary note"></div>
   </div>
 
   <section id="features">
