@@ -1,7 +1,7 @@
 {
   "id": "speedlog",
   "name": "Speedlog",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "minAppVersion": "1.4.0",
   "description": "Run an internet speed test and log every result as a note. Download, upload, latency and jitter with front matter, a per-label summary, and a sidebar panel with history.",
   "author": "Real-Fruit-Snacks",
